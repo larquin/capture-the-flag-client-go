@@ -9,12 +9,13 @@
  */
 
 package game_client
+
 // Player Player information
 type Player struct {
-	Name string `json:"name"`
-	HasPeg bool `json:"has_peg"`
-	HasFlag bool `json:"has_flag"`
-	IsInSafeZone bool `json:"is_in_safe_zone"`
-	X int32 `json:"x"`
-	Y int32 `json:"y"`
+	Name         string `json:"name"`
+	HasPeg       bool   `json:"has_peg"`
+	HasFlag      bool   `json:"has_flag"`
+	IsInSafeZone bool   `json:"is_in_safe_zone"`
+	X            int32  `json:"x"`
+	Y            int32  `json:"y"`
 }

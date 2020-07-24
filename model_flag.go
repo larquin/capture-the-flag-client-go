@@ -9,10 +9,11 @@
  */
 
 package game_client
+
 // Flag Opponent flag information
 type Flag struct {
-	Revealed bool `json:"revealed"`
-	Held bool `json:"held"`
-	X int32 `json:"x"`
-	Y int32 `json:"y"`
+	Revealed bool  `json:"revealed"`
+	Held     bool  `json:"held"`
+	X        int32 `json:"x"`
+	Y        int32 `json:"y"`
 }

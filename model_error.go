@@ -9,6 +9,7 @@
  */
 
 package game_client
+
 // Error struct for Error
 type Error struct {
 	// The HTTP status code
