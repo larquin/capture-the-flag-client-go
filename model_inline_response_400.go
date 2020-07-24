@@ -9,6 +9,7 @@
  */
 
 package game_client
+
 // InlineResponse400 struct for InlineResponse400
 type InlineResponse400 struct {
 	Error Error `json:"error,omitempty"`

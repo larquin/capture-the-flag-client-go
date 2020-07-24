@@ -9,9 +9,10 @@
  */
 
 package game_client
+
 // InlineResponse202 struct for InlineResponse202
 type InlineResponse202 struct {
-	Player Player `json:"player,omitempty"`
-	Flag Flag `json:"flag,omitempty"`
+	Player    Player   `json:"player,omitempty"`
+	Flag      Flag     `json:"flag,omitempty"`
 	Opponents []Player `json:"opponents,omitempty"`
 }
