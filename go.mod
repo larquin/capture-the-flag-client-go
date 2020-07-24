@@ -1,4 +1,4 @@
-module github.com/danthompson/capture-the-flag-client-go
+module github.com/larquin/capture-the-flag-client-go
 
 go 1.14
 
