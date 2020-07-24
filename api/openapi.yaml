@@ -1,0 +1,203 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: hello@testdouble.com
+    name: Test Double
+    url: https://testdouble.com
+  description: A friendly game of Capture the Flag
+  license:
+    name: MIT
+  title: Capture the Flag
+  version: 1.0.0
+servers:
+- description: Game API (development)
+  url: http://localhost:3000/api
+- description: Game API (staging)
+  url: https://staging.retreat-game.com/api
+- description: Game API (production)
+  url: https://retreat-game.com/api
+security:
+- token: []
+tags:
+- name: game
+paths:
+  /moves:
+    post:
+      description: Create a player move
+      operationId: post-moves
+      parameters:
+      - description: The direction to move
+        explode: true
+        in: query
+        name: direction
+        required: true
+        schema:
+          enum:
+          - north
+          - east
+          - west
+          - south
+          type: string
+        style: form
+      responses:
+        "202":
+          content:
+            application/json:
+              examples: {}
+              schema:
+                $ref: '#/components/schemas/inline_response_202'
+          description: Accepted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+          description: Bad Request
+      summary: Create Move
+      tags:
+      - game
+  /player:
+    get:
+      description: Get player information
+      operationId: get-player
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_202'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+          description: Bad Request
+      summary: Get Player
+      tags:
+      - game
+components:
+  schemas:
+    Player:
+      description: Player information
+      example:
+        has_peg: true
+        is_in_safe_zone: true
+        name: name
+        x: 0
+        y: 6
+        has_flag: true
+      properties:
+        name:
+          type: string
+        has_peg:
+          type: boolean
+        has_flag:
+          type: boolean
+        is_in_safe_zone:
+          type: boolean
+        x:
+          format: int32
+          type: integer
+        y:
+          format: int32
+          type: integer
+      required:
+      - has_flag
+      - has_peg
+      - is_in_safe_zone
+      - name
+      - x
+      - "y"
+      title: Player
+      type: object
+    Flag:
+      description: Opponent flag information
+      example:
+        held: true
+        revealed: true
+        x: 1
+        y: 5
+      properties:
+        revealed:
+          type: boolean
+        held:
+          type: boolean
+        x:
+          format: int32
+          type: integer
+        y:
+          format: int32
+          type: integer
+      required:
+      - held
+      - revealed
+      - x
+      - "y"
+      title: Flag
+      type: object
+    Error:
+      properties:
+        code:
+          description: The HTTP status code
+          format: int32
+          maximum: 600
+          minimum: 100
+          type: integer
+        message:
+          description: The error message indicating what the issue is
+          type: string
+      required:
+      - code
+      - message
+      title: Error
+      type: object
+      x-examples:
+        Bad Request:
+          code: 400
+          message: Move not valid
+    inline_response_202:
+      example:
+        flag:
+          held: true
+          revealed: true
+          x: 1
+          y: 5
+        opponents:
+        - has_peg: true
+          is_in_safe_zone: true
+          name: name
+          x: 0
+          y: 6
+          has_flag: true
+        - has_peg: true
+          is_in_safe_zone: true
+          name: name
+          x: 0
+          y: 6
+          has_flag: true
+        player:
+          has_peg: true
+          is_in_safe_zone: true
+          name: name
+          x: 0
+          y: 6
+          has_flag: true
+      properties:
+        player:
+          $ref: '#/components/schemas/Player'
+        flag:
+          $ref: '#/components/schemas/Flag'
+        opponents:
+          items:
+            $ref: '#/components/schemas/Player'
+          type: array
+    inline_response_400:
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+  securitySchemes:
+    token:
+      description: Use provided token for all requests
+      scheme: bearer
+      type: http
