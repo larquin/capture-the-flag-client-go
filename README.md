@@ -1,4 +1,6 @@
-# Go API client for game-client
+# game-client
+
+GameClient - Go client
 
 A friendly game of Capture the Flag
 
@@ -52,7 +54,7 @@ Your bearer token is your email address.
 
 ## token
 
-- **Type**: HTTP basic authentication
+- **Type**: Bearer authentication
 
 Example
 
